@@ -1,0 +1,194 @@
+.hero {
+  position: relative;
+  padding-block: var(--space-16) var(--space-20);
+  overflow: hidden;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--gradient-hero);
+  pointer-events: none;
+}
+
+.container {
+  display: grid;
+  gap: var(--space-12);
+  grid-template-columns: 1fr;
+  align-items: center;
+  position: relative;
+}
+
+@media (min-width: 1024px) {
+  .container {
+    grid-template-columns: 1.1fr 1fr;
+    gap: var(--space-16);
+  }
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  align-self: flex-start;
+  padding: var(--space-2) var(--space-4);
+  background-color: var(--accent-soft);
+  color: var(--accent);
+  border-radius: var(--radius-full);
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  border: 1px solid color-mix(in srgb, var(--accent) 24%, transparent);
+}
+
+.title {
+  font-size: var(--fs-5xl);
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  color: var(--text-primary);
+}
+
+.highlight {
+  color: var(--accent);
+}
+
+.subtitle {
+  font-size: var(--fs-lg);
+  color: var(--text-secondary);
+  line-height: 1.6;
+  max-width: 560px;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+
+.usp {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4) var(--space-6);
+  margin-top: var(--space-2);
+  color: var(--text-secondary);
+  font-size: var(--fs-sm);
+}
+
+.usp li {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.usp svg {
+  color: var(--accent);
+}
+
+.mockupWrapper {
+  position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.mockup {
+  position: relative;
+  width: 100%;
+  max-width: 520px;
+  background-color: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  overflow: hidden;
+  transform: perspective(1000px) rotateY(2deg) rotateX(2deg);
+}
+
+.windowBar {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-4);
+  background-color: var(--bg-secondary);
+  border-bottom: 1px solid var(--border);
+}
+
+.dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+
+.url {
+  margin-left: auto;
+  font-size: var(--fs-xs);
+  color: var(--text-muted);
+  background-color: var(--bg-primary);
+  padding: var(--space-1) var(--space-3);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+}
+
+.mockBody {
+  padding: var(--space-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+.mockHero {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.mockTitle {
+  height: 16px;
+  width: 70%;
+  background: linear-gradient(90deg, var(--text-primary), var(--accent));
+  border-radius: var(--radius-sm);
+  opacity: 0.85;
+}
+
+.mockText {
+  height: 8px;
+  width: 90%;
+  background-color: var(--border);
+  border-radius: var(--radius-sm);
+}
+
+.mockCta {
+  margin-top: var(--space-2);
+  height: 36px;
+  width: 140px;
+  background-color: var(--accent);
+  border-radius: var(--radius-md);
+}
+
+.mockGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-3);
+}
+
+.mockCard {
+  aspect-ratio: 1.1;
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+}
+
+.glow {
+  position: absolute;
+  inset: 10% -10% -10% 10%;
+  background: radial-gradient(circle, var(--accent) 0%, transparent 70%);
+  opacity: 0.25;
+  filter: blur(60px);
+  z-index: -1;
+}

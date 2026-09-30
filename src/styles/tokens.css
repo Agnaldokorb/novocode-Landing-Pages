@@ -1,0 +1,89 @@
+:root {
+  /* Tipografia */
+  --font-sans: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --font-display: 'Inter', system-ui, sans-serif;
+
+  /* Espaçamentos */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+  --space-20: 5rem;
+  --space-24: 6rem;
+
+  /* Radii */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --radius-full: 9999px;
+
+  /* Sombras */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.04);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.12);
+  --shadow-glow: 0 0 0 4px rgba(245, 166, 35, 0.18);
+
+  /* Tipografia fluida */
+  --fs-xs: 0.75rem;
+  --fs-sm: 0.875rem;
+  --fs-base: 1rem;
+  --fs-lg: 1.125rem;
+  --fs-xl: 1.25rem;
+  --fs-2xl: clamp(1.5rem, 2.2vw, 1.875rem);
+  --fs-3xl: clamp(1.875rem, 3vw, 2.25rem);
+  --fs-4xl: clamp(2.25rem, 4.5vw, 3.25rem);
+  --fs-5xl: clamp(2.75rem, 6vw, 4rem);
+
+  /* Layout */
+  --container: 1200px;
+  --header-height: 72px;
+  --transition: 200ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 400ms cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* z-index */
+  --z-header: 50;
+  --z-modal: 100;
+}
+
+/* Tema claro */
+[data-theme='light'] {
+  --bg-primary: #ffffff;
+  --bg-secondary: #f7f8fa;
+  --bg-elevated: #ffffff;
+  --text-primary: #0f1115;
+  --text-secondary: #4b5563;
+  --text-muted: #6b7280;
+  --accent: #f5a623;
+  --accent-hover: #d98e0f;
+  --accent-soft: rgba(245, 166, 35, 0.12);
+  --border: #e5e7eb;
+  --border-strong: #d1d5db;
+  --shadow-md: 0 4px 12px rgba(15, 17, 21, 0.08);
+  --shadow-lg: 0 12px 32px rgba(15, 17, 21, 0.12);
+  --gradient-hero: radial-gradient(ellipse at top, rgba(245, 166, 35, 0.08), transparent 60%);
+}
+
+/* Tema escuro */
+[data-theme='dark'] {
+  --bg-primary: #0b0d12;
+  --bg-secondary: #11141b;
+  --bg-elevated: #161a23;
+  --text-primary: #f5f5f7;
+  --text-secondary: #c7c9d1;
+  --text-muted: #8b8f99;
+  --accent: #f5a623;
+  --accent-hover: #ffb84d;
+  --accent-soft: rgba(245, 166, 35, 0.16);
+  --border: #222632;
+  --border-strong: #2d3344;
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.32);
+  --shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.5);
+  --gradient-hero: radial-gradient(ellipse at top, rgba(245, 166, 35, 0.12), transparent 60%);
+}

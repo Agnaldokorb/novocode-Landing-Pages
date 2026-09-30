@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/assets/favicon.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#F5A623" />
+    <meta name="description" content="Landing pages e sites institucionais criados por devs que entendem de conversão. Modelo Pague quanto achar justo — você avalia, decide e paga na entrega. Hospedagem e domínio à parte." />
+    <meta name="keywords" content="landing page, site institucional, pague quanto achar justo, desenvolvimento web, NovoCode" />
+    <meta name="author" content="NovoCode Tecnologia" />
+    <meta property="og:title" content="NovoCode — Seu site profissional, você decide o valor" />
+    <meta property="og:description" content="Landing pages e sites institucionais com modelo Pague quanto achar justo." />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="pt_BR" />
+
+    <script>
+      (function () {
+        try {
+          var stored = localStorage.getItem('novocode-theme');
+          var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+          var theme = stored || (prefersDark ? 'dark' : 'light');
+          document.documentElement.setAttribute('data-theme', theme);
+        } catch (e) {
+          document.documentElement.setAttribute('data-theme', 'light');
+        }
+      })();
+    </script>
+
+    <title>NovoCode Tecnologia</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>

@@ -1,0 +1,396 @@
+# 🚀 PROMPT — Landing Page Premium | NovoCode Tecnologia
+
+> **Propósito deste documento**: ser usado como briefing completo para que uma IA (ou dev) construa uma landing page premium para a **NovoCode Tecnologia**, divulgando o serviço de criação de **Landing Pages e Sites Institucionais** com o modelo de pagamento "**Pague na entrega, pelo valor que achar justo**" (hospedagem e domínio não inclusos).
+
+---
+
+## 1. CONTEXTO DO PROJETO
+
+### 1.1 Empresa
+- **Nome**: NovoCode Tecnologia
+- **Ramo**: Tecnologia / Desenvolvimento Web
+- **Marca visual**: Logo NC estilizado nas cores **dourado (#F5A623) + cinza/prata (#C9C9C9)** sobre fundo **branco ou preto** (logo adaptativo por tema).
+- **Variações da logo fornecidas**:
+  - `novocode_preto` → usar no **tema claro** (fundo claro).
+  - `novocode-branco` → usar no **tema escuro** (fundo escuro).
+
+### 1.2 Produto/Serviço
+- Criação de **Landing Pages** de alta conversão.
+- Criação de **Sites Institucionais** profissionais.
+- **Diferencial comercial**: o cliente só paga **quando o site estiver pronto e entregue**, e o valor é **escolhido por ele mesmo** (modelo "Pay What You Want").
+- **Não incluso**: hospedagem e domínio (deixar isso explícito na página).
+
+### 1.3 Público-alvo
+- Pequenos e médios empreendedores.
+- Profissionais liberais (médicos, advogados, dentistas, personal trainers etc.).
+- Startups em fase inicial que precisam de presença digital rápida e de qualidade.
+
+---
+
+## 2. STACK TÉCNICA (OBRIGATÓRIA)
+
+| Categoria | Tecnologia |
+|---|---|
+| Framework | **React.js 18+** |
+| Build tool | **Vite 5+** |
+| Linguagem | **JavaScript (ES6+)** — *TypeScript opcional, mas o default é JS* |
+| Estilização | **CSS Modules** ou **Tailwind** (escolha justificada; default: **CSS Modules + CSS Variables** para troca de tema limpa) |
+| Formulários | **React Hook Form** |
+| Validação | **Zod** (integrado ao RHF via `@hookform/resolvers`) |
+| Testes unitários | **Vitest** + **@testing-library/react** |
+| BDD | **Vitest + Cucumber (jest-cucumber)** OU **Vitest BDD com `describe`/steps semânticos** |
+| Ícones | **lucide-react** ou **react-icons** |
+| Animações | **framer-motion** (sutil, premium) |
+| Acessibilidade | WCAG 2.1 AA |
+
+> **Regra de ouro**: nenhum CDN para lógica de negócio. Tudo via `npm`.
+
+---
+
+## 3. PRINCÍPIOS DE ENGENHARIA (NÃO-NEGOCIÁVEL)
+
+### 3.1 SOLID
+- **S** — cada componente / hook tem **uma única responsabilidade**.
+- **O** — aberto para extensão (ex.: novos temas, novos campos de formulário) sem modificar código existente.
+- **L** — `ThemeProvider`, `FormProvider` etc. devem aceitar implementações equivalentes.
+- **I** — interfaces pequenas (ex.: `IContactService`, `IAnalytics`).
+- **D** — dependa de abstrações: `services/api.js` injetável, nunca `fetch` direto no componente.
+
+### 3.2 Design Patterns (usar conscientemente)
+| Pattern | Onde aplicar |
+|---|---|
+| **Provider** | `ThemeProvider`, `FormProvider` do RHF |
+| **Strategy** | Troca de estratégia de envio do form (WhatsApp, e-mail, API) |
+| **Factory** | Fábrica de seções (`createSection(type, props)`) |
+| **Observer** | Hook `useTheme` observando mudanças do tema |
+| **Composite** | Composição de seções da landing (`Hero`, `Features`, `Pricing`...) |
+| **Facade** | Hook `useContactForm` que esconde validação + envio + estado |
+| **Module Pattern** | `services/`, `utils/`, `hooks/` isolados |
+
+### 3.3 TDD (Test-Driven Development)
+> **Regra**: **escrever o teste antes** do componente. Fluxo: 🔴 Red → 🟢 Green → 🔵 Refactor.
+- Cada componente começa com um `*.test.jsx` definindo o comportamento esperado.
+- Cobrir: renderização, props, eventos, troca de tema, acessibilidade básica (roles, labels).
+
+### 3.4 BDD (Behavior-Driven Development)
+- Descrever **features em linguagem natural** antes de implementar.
+- Formato **Given / When / Then** (Dado / Quando / Então) em arquivos `*.feature.js`.
+- Cada scenario vira um `it()` no Vitest.
+
+**Exemplo de feature BDD:**
+```gherkin
+Feature: Troca de tema
+  Scenario: Usuário alterna para tema escuro
+    Given que estou no tema claro
+    When clico no botão "Alternar tema"
+    Then o atributo data-theme do <html> vira "dark"
+    And a logo exibida passa a ser novocode-branco
+```
+
+---
+
+## 4. IDENTIDADE VISUAL — Visual Premium
+
+### 4.1 Paleta de cores
+
+#### Tema Claro (default)
+| Token | Hex | Uso |
+|---|---|---|
+| `--bg-primary` | `#FFFFFF` | Fundo principal |
+| `--bg-secondary` | `#F7F8FA` | Fundo de seções alternadas |
+| `--bg-elevated` | `#FFFFFF` | Cards |
+| `--text-primary` | `#0F1115` | Títulos |
+| `--text-secondary` | `#4B5563` | Corpo |
+| `--text-muted` | `#9CA3AF` | Legendas |
+| `--accent` | `#F5A623` | CTAs, destaques (dourado NovoCode) |
+| `--accent-hover` | `#D98E0F` | Hover do CTA |
+| `--border` | `#E5E7EB` | Bordas sutis |
+| `--shadow` | `rgba(15,17,21,.08)` | Sombras leves |
+
+#### Tema Escuro
+| Token | Hex | Uso |
+|---|---|---|
+| `--bg-primary` | `#0B0D12` | Fundo principal |
+| `--bg-secondary` | `#11141B` | Fundo de seções alternadas |
+| `--bg-elevated` | `#161A22` | Cards |
+| `--text-primary` | `#F5F5F7` | Títulos |
+| `--text-secondary` | `#C7C9D1` | Corpo |
+| `--text-muted` | `#7A7E89` | Legendas |
+| `--accent` | `#F5A623` | **Dourado se mantém** (identidade da marca) |
+| `--accent-hover` | `#FFB84D` | Hover do CTA no escuro |
+| `--border` | `#222632` | Bordas sutis |
+| `--shadow` | `rgba(0,0,0,.5)` | Sombras mais profundas |
+
+> **Detalhe premium**: o dourado `#F5A623` é a âncora da marca e **deve se manter idêntico nos dois temas**.
+
+### 4.2 Tipografia
+- **Títulos**: `Plus Jakarta Sans` ou `Inter Tight` (700/800)
+- **Corpo**: `Inter` (400/500)
+- **Mono** (badges, código): `JetBrains Mono`
+
+### 4.3 Princípios de UI premium
+- **Espaço negativo generoso** (seções com `padding-block: 96px+` no desktop).
+- **Hierarquia clara**: H1 máximo 2 por página, tamanhos generosos (`clamp()`).
+- **Sombras suaves**, nunca duras.
+- **Bordas arredondadas** 12–20px em cards, 999px em CTAs.
+- **Microinterações** com `framer-motion` (fade-up de 16px ao entrar no viewport).
+- **Glassmorphism sutil** no header ao rolar.
+- **Acessibilidade**: contraste mínimo 4.5:1; foco visível; `prefers-reduced-motion` respeitado.
+
+---
+
+## 5. SISTEMA DE TEMAS (LIGHT/DARK)
+
+### 5.1 Comportamento esperado
+1. Detectar preferência do sistema (`prefers-color-scheme`) **na primeira visita**.
+2. Salvar a escolha do usuário em `localStorage` (`theme: 'light' | 'dark'`).
+3. Botão de alternância **visível em todas as páginas** no header.
+4. Transição suave entre temas (200ms ease-out em cores de fundo/texto).
+5. **Troca de logo automática**:
+   - Tema **claro** → renderiza `logo-novocode_preto.png`
+   - Tema **escuro** → renderiza `logo-novocode-branco.png`
+
+### 5.2 Implementação sugerida
+```
+src/
+├── contexts/
+│   └── ThemeContext.jsx        # Provider + hook useTheme
+├── hooks/
+│   └── useTheme.js             # Observer da preferência
+├── assets/
+│   ├── logo-novocode_preto.png
+│   └── logo-novocode-branco.png
+└── components/
+    └── Logo/
+        ├── Logo.jsx
+        ├── Logo.module.css
+        └── Logo.test.jsx
+```
+
+**API do `useTheme`:**
+```js
+const { theme, toggleTheme, setTheme } = useTheme();
+// theme: 'light' | 'dark'
+```
+
+---
+
+## 6. ESTRUTURA DE SEÇÕES DA LANDING
+
+| # | Seção | Objetivo |
+|---|---|---|
+| 1 | **Header / Nav** | Logo adaptativa + menu âncora + botão "Tema" + CTA "Quero meu site" |
+| 2 | **Hero** | Headline forte + subheadline + CTA principal + badge "Pague na entrega" + mockup/visual |
+| 3 | **Diferencial "Pague quanto achar justo"** | Explicar o modelo em 3 passos (Briefing → Produção → Você avalia → Paga o quanto quiser) |
+| 4 | **Serviços** | Landing Pages / Sites Institucionais (cards com ícone, descrição, "a partir de...") |
+| 5 | **Como funciona** | Timeline visual de 4–5 etapas |
+| 6 | **Portfólio / Cases** (opcional v1) | 3–6 cards com mockups |
+| 7 | **Por que nos escolher** | 4–6 benefícios com ícones |
+| 8 | **FAQ** | Accordion com 6–8 perguntas (incluir "O que está incluso?" / "Hospedagem e domínio?") |
+| 9 | **Formulário de contato** | Nome, e-mail, WhatsApp, tipo de projeto, mensagem → validação Zod → envio |
+| 10 | **Footer** | Logo + contatos + redes sociais + copyright |
+
+> ⚠️ **Importante**: deixar **claro e visível** em pelo menos 2 pontos (diferencial + FAQ) que **hospedagem e domínio NÃO estão inclusos**.
+
+---
+
+## 7. FORMULÁRIO DE CONTATO (RHF + ZOD)
+
+### 7.1 Schema Zod
+```js
+const contactSchema = z.object({
+  name: z.string().min(3, 'Informe seu nome completo'),
+  email: z.string().email('E-mail inválido'),
+  phone: z.string().regex(/^\(?\d{2}\)?\s?9?\d{4}-?\d{4}$/, 'WhatsApp inválido'),
+  projectType: z.enum(['landing-page', 'site-institucional', 'outro'], {
+    errorMap: () => ({ message: 'Escolha o tipo de projeto' })
+  }),
+  message: z.string().min(20, 'Conte um pouco mais sobre o projeto').max(1000),
+  acceptTerms: z.literal(true, {
+    errorMap: () => ({ message: 'Você precisa aceitar os termos' })
+  })
+});
+```
+
+### 7.2 Estratégia de envio (Strategy Pattern)
+- **Default**: abre `https://wa.me/55XXXXXXXXXXX?text=...` com os dados pré-preenchidos.
+- **Alternativa plugável**: `services/contact/EmailStrategy.js`, `services/contact/ApiStrategy.js`.
+- Trocar via `.env` → `VITE_CONTACT_STRATEGY=whatsapp|email|api`.
+
+---
+
+## 8. ESTRUTURA DE PASTAS
+
+```
+novocode-landing/
+├── public/
+│   └── assets/
+│       ├── logo-novocode_preto.png
+│       └── logo-novocode-branco.png
+├── src/
+│   ├── main.jsx
+│   ├── App.jsx
+│   ├── styles/
+│   │   ├── global.css
+│   │   ├── tokens.css         # CSS variables (light/dark)
+│   │   └── reset.css
+│   ├── contexts/
+│   │   └── ThemeContext.jsx
+│   ├── hooks/
+│   │   ├── useTheme.js
+│   │   ├── useContactForm.js
+│   │   └── useScrollReveal.js
+│   ├── components/
+│   │   ├── Header/
+│   │   ├── Footer/
+│   │   ├── Logo/
+│   │   ├── ThemeToggle/
+│   │   ├── Button/
+│   │   ├── Section/
+│   │   ├── Card/
+│   │   ├── Accordion/
+│   │   ├── Timeline/
+│   │   ├── Hero/
+│   │   ├── Features/
+│   │   ├── HowItWorks/
+│   │   ├── PricingNote/       # Destaque "Pague quanto achar justo"
+│   │   ├── FAQ/
+│   │   └── ContactForm/
+│   ├── sections/              # Composição final
+│   │   ├── HeroSection.jsx
+│   │   ├── PayWhatYouWantSection.jsx
+│   │   ├── ServicesSection.jsx
+│   │   ├── ProcessSection.jsx
+│   │   ├── FAQSection.jsx
+│   │   └── ContactSection.jsx
+│   ├── services/
+│   │   └── contact/
+│   │       ├── ContactService.js   # Interface
+│   │       ├── WhatsAppStrategy.js
+│   │       ├── EmailStrategy.js
+│   │       └── ApiStrategy.js
+│   ├── schemas/
+│   │   └── contactSchema.js
+│   ├── data/
+│   │   ├── services.js
+│   │   ├── faqs.js
+│   │   └── process.js
+│   └── tests/
+│       ├── setup.js
+│       └── features/
+│           ├── theme.feature.js
+│           └── contact.feature.js
+├── tests/                     # Testes E2E (opcional v2)
+├── .env.example
+├── index.html
+├── vite.config.js
+├── vitest.config.js
+├── package.json
+└── README.md
+```
+
+---
+
+## 9. CONFIGURAÇÕES OBRIGATÓRIAS
+
+### 9.1 `vite.config.js`
+- Alias `@` → `./src`.
+- `server.port = 5173`.
+
+### 9.2 `vitest.config.js`
+- `environment: 'jsdom'`.
+- `globals: true`.
+- `setupFiles: ['./src/tests/setup.js']`.
+- Coverage mínimo: **70%** (statements, branches, functions, lines).
+
+### 9.3 `package.json` scripts
+```json
+{
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "test": "vitest --run",
+    "test:watch": "vitest",
+    "test:cov": "vitest --coverage",
+    "test:bdd": "vitest --run src/tests/features",
+    "lint": "eslint src --ext .js,.jsx",
+    "format": "prettier --write \"src/**/*.{js,jsx,css}\""
+  }
+}
+```
+
+---
+
+## 10. COPY SUGERIDA (PT-BR)
+
+### Headline Hero
+> **"Seu site profissional pronto — você só paga quando entregar, pelo valor que achar justo."**
+
+### Subheadline
+> Landing pages e sites institucionais criados por devs que entendem de conversão. Sem mensalidade, sem surpresa. **Hospedagem e domínio à parte, com toda a transparência.**
+
+### CTA principal
+> **"Quero meu site"**
+
+### Selo do modelo
+> 💛 **Modelo "Pague quanto achar justo"** — você avalia, decide o valor e paga apenas na entrega.
+
+### FAQ obrigatório
+- **O que está incluso no serviço?** → Design, desenvolvimento, responsividade, SEO básico e publicação.
+- **Hospedagem e domínio estão inclusos?** → **Não.** Indicamos parceiros de confiança, mas a contratação fica por sua conta.
+- **Como funciona o pagamento?** → Após a entrega, você paga o valor que considerar justo pelo trabalho.
+- **Em quanto tempo recebo?** → Landing pages em 7 dias úteis; sites institucionais em 15–20 dias.
+- **Posso pedir alterações?** → Sim, até 2 rodadas de revisão inclusas.
+
+---
+
+## 11. CRITÉRIOS DE ACEITAÇÃO
+
+### Funcionais
+- [ ] Tema claro/escuro alterna em < 100ms sem flash (FOUC).
+- [ ] Logo troca automaticamente conforme o tema.
+- [ ] Botão de tema acessível por teclado (Enter/Space).
+- [ ] Formulário valida com Zod e exibe mensagens em PT-BR.
+- [ ] Submissão do form abre WhatsApp com mensagem formatada.
+- [ ] Todas as seções responsivas (mobile 360px → desktop 1920px).
+- [ ] Animações desativam quando `prefers-reduced-motion: reduce`.
+
+### Qualidade de código
+- [ ] Sem `any` (ou sem `// @ts-ignore` — usando JS).
+- [ ] Sem `fetch`/acoplamento direto em componentes (usar `services/`).
+- [ ] Cobertura de testes ≥ 70%.
+- [ ] Todos os componentes com testes unitários.
+- [ ] Ao menos 1 feature BDD por fluxo crítico (tema, contato).
+
+### Acessibilidade
+- [ ] Lighthouse Accessibility ≥ 95.
+- [ ] Lighthouse Performance ≥ 90.
+- [ ] Lighthouse SEO ≥ 95.
+- [ ] Navegação completa por teclado.
+- [ ] `aria-label` em ícones sem texto.
+
+---
+
+## 12. ENTREGÁVEIS
+
+1. Repositório Git com código completo.
+2. `README.md` com:
+   - Como rodar (`npm install`, `npm run dev`).
+   - Como testar (`npm test`, `npm run test:cov`).
+   - Como trocar a logo (apontar caminho em `assets/`).
+   - Como configurar WhatsApp/email no `.env`.
+3. **Build de produção** pronto para deploy em Vercel/Netlify.
+4. **Hospedagem**: separar `domínio` + `host` (Cloudflare Pages / Netlify).
+
+---
+
+## 13. NOTAS FINAIS PARA A IA EXECUTORA
+
+> 🧠 **Mindset**: este é um projeto **real de uma empresa real**. Trate como se fosse seu cliente pagar. Código limpo, commits semânticos, README honesto.
+>
+> 🚫 **Evite**: `useEffect` desnecessário, `console.log` esquecido, magic numbers, classes CSS globais, `!important`.
+>
+> ✅ **Priorize**: legibilidade, testabilidade, performance percebida e **sensação premium ao usuário**.
+>
+> 💡 **Lembrete constante**: a logo **novocode_preto** é para tema claro, e **novocode-branco** é para tema escuro. Não confunda na hora de implementar o `<Logo />`.
